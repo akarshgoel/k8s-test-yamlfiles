@@ -1,0 +1,11 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredRegistry
+metadata:
+  name: includerequiredregistry-k8s-gcr
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    registry: "k8s.gcr.io/"

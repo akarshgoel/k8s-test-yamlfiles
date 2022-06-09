@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: test-deploy
+  name: test-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: test-deploy
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 2000
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+        volumeMounts:
+        - name: nginx-dir
+          mountPath: /etc/nginx/conf.d/
+        - name: nginx-empty
+          mountPath: /var/cache/nginx/client_temp
+        - name: nginx-run
+          mountPath: /var/run/
+      volumes:
+      - name: nginx-dir
+        emptyDir: { }
+      - name: nginx-empty
+        emptyDir: { }
+      - name: nginx-run
+        emptyDir: { }
+status: {}
